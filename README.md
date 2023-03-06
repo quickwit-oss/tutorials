@@ -32,7 +32,7 @@ cd quickwit-*
 
 ### Auto-instrumentation
 
-Executes the following command. It will start a server on port 5000.
+Start your app with `my_instrumented_app` script.
 
 ```bash
 OTEL_METRICS_EXPORTER=none \ # We don't need metrics
@@ -41,14 +41,14 @@ OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://localhost:7281 \
 opentelemetry-instrument python my_instrumented_app.py
 ```
 
-Now hit the endpoint `http://localhost:5000/`, it will send traces to Quickwit.
+Now hit the endpoint [`http://localhost:5000/process-ip`](http://localhost:5000/process-ip), it will send traces to Quickwit.
 
 ### Manual instrumentation
 
-Executes the following command. It will start a server on port 5000.
+Start your app with `my_manually_instrumented_app` script.
 
 ```bash
 python my_manually_instrumented_app.py
 ```
 
-Now hit the endpoint `http://localhost:5000/`, it will send traces to Quickwit.
+Now hit the endpoint [`http://localhost:5000/process-ip`](http://localhost:5000/process-ip), it will send traces to Quickwit.
