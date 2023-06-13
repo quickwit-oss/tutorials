@@ -1,0 +1,24 @@
+[package]
+name = "web-api"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+actix-web = "4.1.0"
+actix-web-opentelemetry = "0.13.0"
+anyhow = "1.0.71"
+futures = "0.3.28"
+opentelemetry = { version = "0.19.0", default-features = false, features = ["trace", "rt-tokio"] }
+opentelemetry-otlp = { version = "0.12.0", features = ["reqwest-client", "reqwest-rustls", "http-proto"] }
+opentelemetry-semantic-conventions = "0.11.0"
+reqwest = {version = "0.11.18", features = ["json"] }
+serde = { version = "1.0.143", features = ["derive"] }
+serde_json = "1.0.83"
+tokio = { version = "1.24", features = ["full"] }
+tracing = "0.1.36"
+tracing-bunyan-formatter = "0.3.3"
+tracing-opentelemetry = "0.19.0"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+rand = "0.8.5"
+log = "0.4.17"
+tracing-actix-web = "0.7"
