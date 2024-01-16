@@ -38,6 +38,10 @@ In this tutorial, we will index logs from the HDFS logs datasets (link) and the 
 
 ## Deploy Quickwit Lambda Stack
 
+First delete all objects in the S3 buckets created for this stack.
+
+Then run:
+
 ```bash
 cdk deploy -a app.py QuickwitLambdaStack
 ```

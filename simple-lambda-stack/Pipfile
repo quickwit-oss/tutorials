@@ -4,6 +4,9 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+boto3 = "*"
+click = "*"
+aws-cdk-lib = "*"
 
 [dev-packages]
 

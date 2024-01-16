@@ -6,18 +6,20 @@ import aws_cdk
 from aws_cdk import Stack, aws_s3_assets, aws_s3, aws_lambda, aws_iam
 from constructs import Construct
 
-# Using 3008MB as default because higher memory configurations need to be
-# enabled for each AWS account through the support.
-DEFAULT_LAMBDA_MEMORY_SIZE = 3008
-INDEX_STORE_BUCKET_NAME_EXPORT_NAME = "quickwit-index-store-bucket-name"
-INDEXER_FUNCTION_NAME_EXPORT_NAME = "quickwit-indexer-function-name"
-SEARCHER_FUNCTION_NAME_EXPORT_NAME = "quickwit-searcher-function-name"
-RUST_LOG = "quickwit=info"
+from constants import (
+    QUICKWIT_LAMBDA_STACK_NAME,
+    DEFAULT_LAMBDA_MEMORY_SIZE,
+    INDEX_STORE_BUCKET_NAME_EXPORT_NAME,
+    INDEXER_FUNCTION_NAME_EXPORT_NAME,
+    SEARCHER_FUNCTION_NAME_EXPORT_NAME,
+    INDEXER_PACKAGE_LOCATION,
+    SEARCHER_PACKAGE_LOCATION,
+    RUST_LOG,
+)
 
 def extract_local_env() -> dict[str, str]:
     """Extracts local environment variables that start with QW_LAMBDA_"""
     return {k: os.environ[k] for k in os.environ.keys() if k.startswith("QW_LAMBDA_")}
-
 
 class QuickwitLambdaStack(Stack):
     def __init__(
@@ -203,7 +205,7 @@ app = aws_cdk.App()
 
 QuickwitLambdaStack(
     app,
-    "QuickwitLambdaStack",
+    QUICKWIT_LAMBDA_STACK_NAME,
     env=aws_cdk.Environment(
         account=os.getenv("CDK_ACCOUNT"), region=os.getenv("CDK_REGION")
     ),
@@ -213,8 +215,8 @@ QuickwitLambdaStack(
     searcher_memory_size=int(
         os.environ.get("SEARCHER_MEMORY_SIZE", DEFAULT_LAMBDA_MEMORY_SIZE)
     ),
-    indexer_package_location="cdk.out/quickwit-lambda-indexer-beta-x86_64.zip",
-    searcher_package_location="cdk.out/quickwit-lambda-searcher-beta-x86_64.zip",
+    indexer_package_location=INDEXER_PACKAGE_LOCATION,
+    searcher_package_location=SEARCHER_PACKAGE_LOCATION,
 )
 
 app.synth()
