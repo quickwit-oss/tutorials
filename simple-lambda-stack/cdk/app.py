@@ -17,9 +17,11 @@ from constants import (
     RUST_LOG,
 )
 
+
 def extract_local_env() -> dict[str, str]:
     """Extracts local environment variables that start with QW_LAMBDA_"""
     return {k: os.environ[k] for k in os.environ.keys() if k.startswith("QW_LAMBDA_")}
+
 
 class QuickwitLambdaStack(Stack):
     def __init__(
@@ -30,7 +32,7 @@ class QuickwitLambdaStack(Stack):
         searcher_memory_size: int,
         indexer_package_location: str,
         searcher_package_location: str,
-        **kwargs
+        **kwargs,
     ) -> None:
         super().__init__(scope, construct_id, **kwargs)
         index_config_path = os.getenv("INDEX_CONFIG_PATH", "index-config.yaml")
@@ -77,6 +79,7 @@ class QuickwitLambdaStack(Stack):
             value=qw_svc.searcher.lambda_function.function_name,
             export_name=SEARCHER_FUNCTION_NAME_EXPORT_NAME,
         )
+
 
 class QuickwitService(Construct):
     def __init__(
@@ -126,6 +129,7 @@ class QuickwitService(Construct):
             asset_path=searcher_package_location,
         )
 
+
 class IndexerService(Construct):
     def __init__(
         self,
@@ -166,7 +170,14 @@ class IndexerService(Construct):
                 resources=[f"arn:aws:s3:::{index_config_bucket}/{index_config_key}"],
             )
         )
+        self.lambda_function.add_to_role_policy(
+            aws_iam.PolicyStatement(
+                actions=["s3:GetObject"],
+                resources=["arn:aws:s3:::quickwit-datasets-public/*"],
+            )
+        )
         store_bucket.grant_read_write(self.lambda_function)
+
 
 class SearcherService(Construct):
     def __init__(
@@ -178,7 +189,7 @@ class SearcherService(Construct):
         memory_size: int,
         environment: dict[str, str],
         asset_path: str,
-        **kwargs
+        **kwargs,
     ) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
@@ -200,6 +211,7 @@ class SearcherService(Construct):
         )
 
         store_bucket.grant_read_write(self.lambda_function)
+
 
 app = aws_cdk.App()
 
