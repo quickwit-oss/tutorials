@@ -19,8 +19,8 @@ pipenv install
 
 ```bash
 mkdir -p cdk.out
-wget -P cdk.out https://github.com/quickwit-oss/quickwit/releases/download/aws-lambda-beta-01/quickwit-lambda-indexer-lambda-beta-01-x86_64.zip
-wget -P cdk.out  https://github.com/quickwit-oss/quickwit/releases/download/aws-lambda-beta-01/quickwit-lambda-searcher-lambda-beta-01-x86_64.zip
+wget -P cdk.out https://github.com/quickwit-oss/quickwit/releases/download/aws-lambda-beta-01/quickwit-lambda-indexer-beta-01-x86_64.zip
+wget -P cdk.out https://github.com/quickwit-oss/quickwit/releases/download/aws-lambda-beta-01/quickwit-lambda-searcher-beta-01-x86_64.zip
 ```
 
 ## Boostrap CDK
