@@ -88,7 +88,7 @@ class QuickwitService(Construct):
         index_id: str,
         searcher_package_location: str,
         indexer_package_location: str,
-        indexer_memory_size: int = DEFAULT_LAMBDA_MEMORY_SIZE,
+        indexer_memory_size: int = 8000,
         indexer_environment: dict[str, str] = {},
         searcher_memory_size: int = DEFAULT_LAMBDA_MEMORY_SIZE,
         searcher_environment: dict[str, str] = {},

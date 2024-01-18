@@ -43,7 +43,7 @@ First delete all objects in the S3 buckets created for this stack.
 Then run:
 
 ```bash
-cdk deploy -a app.py QuickwitLambdaStack
+cdk deploy -a cdk/app.py QuickwitLambdaStack
 ```
 
 ## Index data
@@ -56,6 +56,11 @@ python cli.py index s3://quickwit-datasets-public/hdfs-logs-multitenants-10000.j
 
 ```bash
 python cli.py search '{"query":"severity_text:ERROR"}'
+```
+
+```bash
+python cli.py search '{ "query": "*", "max_hits": 0, "aggs": { "events": { "date_histogram": { "field": "timestamp", "fixed_interval": "1d" }, "aggs": { "log_level": { "terms": { "size": 10, "field": "severity_text", "order": { "_count": "desc" } } } } } } }'
+
 ```
 
 ## Cleanup
