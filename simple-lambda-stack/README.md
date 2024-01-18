@@ -19,8 +19,8 @@ pipenv install
 
 ```bash
 mkdir -p cdk.out
-wget -P cdk.out https://github.com/quickwit-oss/quickwit/releases/download/aws-lambda-beta/quickwit-lambda-indexer-beta-01-x86_64.zip
-wget -P cdk.out  https://github.com/quickwit-oss/quickwit/releases/download/aws-lambda-beta/quickwit-lambda-searcher-beta-01-x86_64.zip
+wget -P cdk.out https://github.com/quickwit-oss/quickwit/releases/download/aws-lambda-beta-01/quickwit-lambda-indexer-lambda-beta-01-x86_64.zip
+wget -P cdk.out  https://github.com/quickwit-oss/quickwit/releases/download/aws-lambda-beta-01/quickwit-lambda-searcher-lambda-beta-01-x86_64.zip
 ```
 
 ## Boostrap CDK
@@ -37,8 +37,6 @@ cdk bootstrap aws://$CDK_ACCOUNT/$CDK_REGION
 In this tutorial, we will index logs from the HDFS logs datasets (link) and the provided config index-config.yaml.
 
 ## Deploy Quickwit Lambda Stack
-
-First delete all objects in the S3 buckets created for this stack.
 
 Then run:
 
@@ -64,6 +62,8 @@ python cli.py search '{ "query": "*", "max_hits": 0, "aggs": { "events": { "date
 ```
 
 ## Cleanup
+
+Delete all the files in your buckets and then destroy the stack.
 
 ```bash
 cdk destroy -a cdk/app.py
