@@ -59,16 +59,14 @@ def index(input_s3_path):
         Payload=f"""{{ "source_uri": "{input_s3_path}" }}""",
     )
     invoke_duration = time.time() - invoke_start
-    print(f"invoke duration: {invoke_duration}")
+    print(f"Invoke duration: {invoke_duration}")
     print(resp["Payload"].read().decode("utf-8"))
 
 @click.command()
 @click.argument('json_query')
 def search(json_query):
     function_name = get_cloudformation_output_value(SEARCHER_FUNCTION_NAME_EXPORT_NAME)
-    print(f"searcher function name: {function_name}")
     lambda_client = session.client("lambda")
-    invoke_start = time.time()
     resp = lambda_client.invoke(
         FunctionName=function_name,
         InvocationType="RequestResponse",
@@ -84,8 +82,6 @@ def search(json_query):
             }
         ),
     )
-    invoke_duration = time.time() - invoke_start
-    print(f"invoke duration: {invoke_duration}")
     print(decode_payload(resp["Payload"]))
 
 def decode_payload(payload):
