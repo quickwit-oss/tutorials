@@ -1,0 +1,8 @@
+version: 0.7
+source_id: redpanda-source
+source_type: kafka
+desired_num_pipelines: 48
+params:
+  topic: hdfs-logs
+  client_params:
+    bootstrap.servers: redpanda:9092
